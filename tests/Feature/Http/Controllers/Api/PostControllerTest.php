@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
+use App\Post;
+
 class PostControllerTest extends TestCase
 {
     use RefreshDatabase;
@@ -26,7 +28,6 @@ class PostControllerTest extends TestCase
 
     public function test_validate_title()
     {
-
         $response = $this->json('POST', '/api/posts', [
             'title' => ''
         ]);
@@ -34,6 +35,12 @@ class PostControllerTest extends TestCase
         // estatus HTT 422
         $response->assertStatus(422)
             ->assertJsonValidationErrors('title');
+    }
 
+    public function test_404_show()
+    {
+        $response = $this->json('GET', '/api/posts/1000'); // id = 1
+
+        $response->assertStatus(404); //OK
     }
 }
