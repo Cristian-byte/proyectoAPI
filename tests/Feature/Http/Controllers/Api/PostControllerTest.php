@@ -1,13 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Http\Controllers\Api;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class UserTest extends TestCase
-class PageTest extends TestCase
+class PostControllerTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -15,7 +14,6 @@ class PageTest extends TestCase
      * @return void
      */
     public function testExample()
-    public function test_about()
     {
         $response = $this->get('/');
 
