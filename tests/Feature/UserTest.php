@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class UserTest extends TestCase
+class PageTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -14,6 +15,7 @@ class UserTest extends TestCase
      * @return void
      */
     public function testExample()
+    public function test_about()
     {
         $response = $this->get('/');
 
