@@ -37,10 +37,37 @@ class PostControllerTest extends TestCase
             ->assertJsonValidationErrors('title');
     }
 
+     public function test_show()
+    {
+        $post = factory(Post::class)->create();
+
+        $response = $this->json('GET', "/api/posts/$post->id"); // id = 1
+
+        $response->assertJsonStructure(['id', 'title', 'created_at', 'updated_at'])
+            ->assertJson(['title' => $post->title])
+            ->assertStatus(200); //OK
+    }
+
     public function test_404_show()
     {
         $response = $this->json('GET', '/api/posts/1000'); // id = 1
 
         $response->assertStatus(404); //OK
+    }
+
+    public function test_update()
+    {
+        // $this->withoutExceptionHandling();
+        $post = factory(Post::class)->create();
+
+        $response = $this->json('PUT', "/api/posts/$post->id", [
+            'title' => 'nuevo'
+        ]);
+
+        $response->assertJsonStructure(['id', 'title', 'created_at', 'updated_at'])
+            ->assertJson(['title' => 'nuevo'])
+            ->assertStatus(200); // Ok
+
+        $this->assertDatabaseHas('posts', ['title' => 'nuevo']);
     }
 }
